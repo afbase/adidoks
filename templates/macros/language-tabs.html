@@ -1,0 +1,29 @@
+{% macro language_tabs(page) %}
+<ul class="nav nav-tabs" role="tablist">
+    {% for lang in ["en", "fr", "es", "pt"] %}
+        {% set lang_data = page.extra.slave_code[lang] %}
+        {% if lang_data %}
+            <li class="nav-item" role="presentation">
+                <button class="nav-link {% if loop.first %}active{% endif %}" 
+                        id="{{ lang }}-tab" 
+                        data-bs-toggle="tab" 
+                        data-bs-target="#{{ lang }}" 
+                        type="button" 
+                        role="tab" 
+                        aria-controls="{{ lang }}" 
+                        aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
+                    {{ lang | upper }}
+                    {% if lang_data.is_transcribed %}
+                        (Transcribed)
+                    {% endif %}
+                    {% if lang_data.is_translation %}
+                        (Translated)
+                    {% endif %}
+                </button>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endmacro %}
+
+{{ language_tabs(page) }}
