@@ -1,11 +1,38 @@
-{% extends "slave-code-page.html" %}
+{% extends "base.html" %}
+
+{% macro language_tabs(page) %}
+<ul class="nav nav-tabs" role="tablist">
+    {% for lang in ["en", "fr", "es", "pt"] %}
+        {% if page.extra.slave_code[lang] %}
+            <li class="nav-item" role="presentation">
+                <button class="nav-link {% if loop.first %}active{% endif %}" 
+                        id="{{ lang }}-tab" 
+                        data-bs-toggle="tab" 
+                        data-bs-target="#{{ lang }}" 
+                        type="button" 
+                        role="tab" 
+                        aria-controls="{{ lang }}" 
+                        aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
+                    {{ lang | upper }}
+                    {% if page.extra.slave_code[lang].is_transcribed %}
+                        (Transcribed)
+                    {% endif %}
+                    {% if page.extra.slave_code[lang].is_translation %}
+                        (Translated)
+                    {% endif %}
+                </button>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endmacro language_tabs %}
 
 {% block content %}
 <h1>{{ page.title }}</h1>
 <p>{{ page.description }}</p>
 
 {% if page.extra.slave_code %}
-    {% include "macros/language-tabs.html" %}
+    {{ language_tabs(page=page) }}
     
     <div class="mt-3">
         <input type="text" id="searchInput" class="form-control" placeholder="Search text...">
@@ -14,11 +41,12 @@
     
     <div class="tab-content mt-3">
         {% for lang in ["en", "fr", "es", "pt"] %}
-            {% set lang_data = page.extra.slave_code[lang] %}
-            {% if lang_data %}
+            {% if page.extra.slave_code[lang] %}
                 <div class="tab-pane fade {% if loop.first %}show active{% endif %}" id="{{ lang }}" role="tabpanel">
                     <pre id="{{ lang }}-content" class="border p-3" style="white-space: pre-wrap;">
-                        {% include lang_data.slave_code %}
+                        {% set slave_code_path = page.extra.slave_code[lang].slave_code %}
+                        {% set slave_code_content = load_data(path=slave_code_path) %}
+                        {{ slave_code_content | safe }}
                     </pre>
                 </div>
             {% endif %}

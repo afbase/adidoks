@@ -1,8 +1,7 @@
 {% macro language_tabs(page) %}
 <ul class="nav nav-tabs" role="tablist">
     {% for lang in ["en", "fr", "es", "pt"] %}
-        {% set lang_data = page.extra.slave_code[lang] %}
-        {% if lang_data %}
+        {% if page.extra.slave_code[lang] %}
             <li class="nav-item" role="presentation">
                 <button class="nav-link {% if loop.first %}active{% endif %}" 
                         id="{{ lang }}-tab" 
@@ -13,10 +12,10 @@
                         aria-controls="{{ lang }}" 
                         aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
                     {{ lang | upper }}
-                    {% if lang_data.is_transcribed %}
+                    {% if page.extra.slave_code[lang].is_transcribed %}
                         (Transcribed)
                     {% endif %}
-                    {% if lang_data.is_translation %}
+                    {% if page.extra.slave_code[lang].is_translation %}
                         (Translated)
                     {% endif %}
                 </button>
@@ -24,6 +23,6 @@
         {% endif %}
     {% endfor %}
 </ul>
-{% endmacro %}
+{% endmacro language_tabs %}
 
-{{ language_tabs(page) }}
+{{ language_tabs(page=page) }}
