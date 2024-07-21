@@ -5,7 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12 col-lg-10 col-xl-8"> <!-- Adjusted column sizes -->
             <main class="docs-content">
-                <h1>{{ page.title }}</h1>
+                <!-- TODO: FIX ME THIS IS BAD PRACTICE -->
+                <h1 style="border-top-style: solid;border-top-width: 12px;">{{ page.title }}</h1>
+                <!-- TODO: FIX ME THIS IS BAD PRACTICE -->
                 {% if page.description %}
                     <p class="lead">{{ page.description | safe }}</p>
                 {% endif %}

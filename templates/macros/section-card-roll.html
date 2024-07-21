@@ -15,7 +15,10 @@
 {% endmacro center_column %}
 
 {% macro section_header(title) %}
-<h1 class="text-center">{{ title }}</h1>
+<!-- <h1 class="text-center">{{ title }}</h1> -->
+<!-- TODO: FIX ME THIS IS BAD PRACTICE -->
+<h1 style="border-top-style: solid;border-top-width: 12px;">{{ title }}</h1>
+<!-- TODO: FIX ME THIS IS BAD PRACTICE -->
 {% endmacro section_header %}
 
 {% macro card_list(pages) %}
