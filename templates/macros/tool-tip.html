@@ -1,0 +1,5 @@
+{% macro tooltip(text, tooltip_content) %}
+<span class="tooltip-wrapper" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ tooltip_content | escape }}">
+  {{ text }}
+</span>
+{% endmacro tooltip %}

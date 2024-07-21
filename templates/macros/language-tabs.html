@@ -1,28 +1,24 @@
 {% macro language_tabs(page) %}
-<ul class="nav nav-tabs" role="tablist">
-    {% for lang in ["en", "fr", "es", "pt"] %}
-        {% if page.extra.slave_code[lang] %}
-            <li class="nav-item" role="presentation">
-                <button class="nav-link {% if loop.first %}active{% endif %}" 
-                        id="{{ lang }}-tab" 
-                        data-bs-toggle="tab" 
-                        data-bs-target="#{{ lang }}" 
-                        type="button" 
-                        role="tab" 
-                        aria-controls="{{ lang }}" 
-                        aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
-                    {{ lang | upper }}
-                    {% if page.extra.slave_code[lang].is_transcribed %}
-                        (Transcribed)
-                    {% endif %}
-                    {% if page.extra.slave_code[lang].is_translation %}
-                        (Translated)
-                    {% endif %}
-                </button>
-            </li>
-        {% endif %}
+<ul class="nav nav-tabs" id="languageTabs" role="tablist">
+    {% for code in page.extra.slave_code.codes %}
+        <li class="nav-item" role="presentation">
+            <button class="nav-link {% if loop.first %}active{% endif %}" 
+                    id="{{ code.lang }}-tab" 
+                    data-bs-toggle="tab" 
+                    data-bs-target="#{{ code.lang }}" 
+                    type="button" 
+                    role="tab" 
+                    aria-controls="{{ code.lang }}" 
+                    aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
+                {{ code.lang | upper }}
+                {% if code.is_transcribed %}
+                    (Transcribed)
+                {% endif %}
+                {% if code.is_translation %}
+                    (Translated)
+                {% endif %}
+            </button>
+        </li>
     {% endfor %}
 </ul>
 {% endmacro language_tabs %}
-
-{{ language_tabs(page=page) }}

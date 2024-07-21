@@ -32,7 +32,6 @@
         </div>
         <div class="col-lg-9 col-xl-8 text-center">
           <p class="lead">{{ section.extra.lead | default(value="Please start setting config.toml and adding your content.") | safe }}</p>
-          <!-- <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ get_url(path=section.extra.url | default(value="/")) | safe }}" role="button">{{ section.extra.url_button | default(value="Get started") }}</a> -->
         </div>
       </div>
     </section>
@@ -49,39 +48,36 @@
           <p>{{ val.content | safe }}</p>
         </div>
         {% endfor %}
-      {% else %}
-        <div class="col-lg-5">
-          <h2 class="h4">Security aware</h2>
-          <p>Get A+ scores on <a href="https://observatory.mozilla.org/analyze/doks.netlify.app">Mozilla Observatory</a> out of the box. Easily change the default Security Headers to suit your needs.</p>
-        </div>      
-        <div class="col-lg-5">
-          <h2 class="h4">Fast by default ⚡️</h2>
-          <p>Get 100 scores on <a href="https://googlechrome.github.io/lighthouse/viewer/?gist=7731347bb8ce999eff7428a8e763b637">Google Lighthouse</a> by default. Doks removes unused css, prefetches links, and lazy loads images.</p>
-        </div>
-        <div class="col-lg-5">
-          <h2 class="h4">SEO-ready</h2>
-          <p>Use sensible defaults for structured data, open graph, and Twitter cards. Or easily change the SEO settings to your liking.</p>
-        </div>
-        <div class="col-lg-5">
-          <h2 class="h4">Full text search</h2>
-          <p>Search your Doks site with FlexSearch. Easily customize index settings and search options to your liking.</p>
-        </div>
-        <div class="col-lg-5">
-          <h2 class="h4">Page layouts</h2>
-          <p>Build pages with a landing page, blog, or documentation layout. Add custom sections and components to suit your needs.</p>
-        </div>
-        <div class="col-lg-5">
-          <h2 class="h4">Dark mode</h2>
-          <p>Switch to a low-light UI with the click of a button. Change colors with variables to match your branding.</p>
-        </div>
       {% endif %}
     </div>
   </div>
 </section>
 
-<section class="section section-sm container-fluid">
-  <div class="row justify-content-center text-center">
-    <div class="col-lg-9"></div>
+<section class="section section-sm">
+  <div class="container">
+    <h2 class="h3 text-center mb-4">Recent Blog Posts</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-10 col-xxl-8">
+        <div class="card-list">
+          {% set blog_section = get_section(path="blog/_index.md") %}
+          {% set recent_posts = blog_section.pages | slice(end=3) %}
+          {% for page in recent_posts %}
+            <div class="card my-3">
+              <div class="card-body">
+                <h3 class="h5"><a class="stretched-link text-body" href="{{ page.permalink }}">{{ page.title }}</a></h3>
+                {% if page.description %}
+                  <p>{{ page.description }}</p>
+                {% endif %}
+                <p><small>Posted {{ page.date | date(format="%B %d, %Y") }}</small></p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+          <a href="{{ get_url(path="blog") }}" class="btn btn-primary">View all posts</a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 {% endblock content %}

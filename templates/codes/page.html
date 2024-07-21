@@ -1,7 +1,7 @@
 {% extends "page.html" %}
 
 {% block body %}
-  {% set page_class = "docs single" %}
+  {% set page_class = "codes single" %}
 {% endblock body %}
 
 {% block header %}
@@ -13,11 +13,16 @@
 {% block content %}
 <div class="wrap container" role="document">
   <div class="content">
-    <div class="row flex-xl-nowrap">
+    <div class="row flex-lg-nowrap justify-content">
 	  {{ macros_sidebar::docs_sidebar(current_section=current_section) }}
 	  {{ macros_toc::docs_toc(page=page) }}
       <main class="docs-content col-lg-11 col-xl-9">
-        <h1>{{ page.title }}</h1>
+        <div class="blog-header">
+          <!-- TODO: FIX ME THIS IS BAD PRACTICE -->
+          <h1 style="border-top-style: solid;border-top-width: 12px;">{{ page.title }}</h1>
+          <!-- TODO: FIX ME THIS IS BAD PRACTICE -->
+          {{ macros_publish::page_publish_metadata(page=page) }}
+        </div>
         {% if page.extra.lead %}<p class="lead">{{ page.extra.lead | safe }}</p>{% endif %}
         {{ page.content | safe }}
         {% if config.extra.edit_page %}

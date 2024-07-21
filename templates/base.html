@@ -9,6 +9,9 @@
 {% import 'macros/docs-edit-page.html' as macros_edit_page -%}
 {% import 'macros/docs-navigation.html' as macros_navigation -%}
 {% import 'macros/docs-toc.html' as macros_toc -%}
+{% import 'macros/language-tabs.html' as macros_language_tabs -%}
+{% import "macros/section-card-roll.html" as macros_section_card_roll -%}
+{% import "macros/tool-tip.html" as macros_tool_tip -%}
 <!DOCTYPE html>
 <html lang="{{ config.extra.language_code | default(value="en-US") }}">
 <head>
@@ -28,6 +31,8 @@
 
 {{ macros_head::favicons() }}
 {% block math %}{{ macros_math::math() }}{% endblock math %}
+<link rel="stylesheet" href="{{ get_url(path="css/bootstrap.min.css") | safe }}">
+<link rel="stylesheet" href="{{ get_url(path="css/slave-code.css") | safe }}">
 </head>
 {% block body %}{% set page_class="home" %}{% endblock body %}
 <body class="{{ page_class }}">
@@ -41,6 +46,15 @@
     {{ macros_footer::footer() }}
   {% endblock footer %}
 
-  {{ macros_js::javascript() }}  
+  {{ macros_js::javascript() }} 
+  <script src="{{ get_url(path="js/bootstrap.bundle.min.js") | safe }}"></script>
+  <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  </script>
+  <script src="{{ get_url(path="js/slave-code-tabs.js") | safe }}"></script> 
+  <script src="{{ get_url(path="js/main.js") | safe }}"></script> 
 </body>
 </html>

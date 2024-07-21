@@ -1,9 +1,9 @@
 {% extends "page.html" %}
 
 {% block content %}
-<div class="container"> <!-- Changed back to container -->
-    <div class="row justify-content-center">
-        <div class="col-md-12 col-lg-10 col-xl-8"> <!-- Adjusted column sizes -->
+<div class="container-fluid px-0"> <!-- Changed to container-fluid and removed padding -->
+    <div class="row"> <!-- Removed any extra classes here -->
+        <div class="col-12"> <!-- Use full width column -->
             <main class="docs-content">
                 <h1>{{ page.title }}</h1>
                 {% if page.description %}
@@ -40,29 +40,24 @@
                                 </pre>
                             </div>
                         {% endfor %}
+                        <div id="searchBar" class="sticky-bottom bg-light py-2">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <input type="text" id="searchInput" class="form-control" placeholder="Search text...">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button id="prevButton" class="btn btn-secondary mr-2">Previous</button>
+                                        <button id="nextButton" class="btn btn-secondary">Next</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 {% endif %}
 
                 {{ page.content | safe }}
             </main>
-        </div>
-    </div>
-</div>
-
-<div id="searchBar" class="sticky-bottom bg-light py-2">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12 col-lg-10 col-xl-8">
-                <div class="row">
-                    <div class="col-md-8">
-                        <input type="text" id="searchInput" class="form-control" placeholder="Search text...">
-                    </div>
-                    <div class="col-md-4">
-                        <button id="prevButton" class="btn btn-secondary mr-2">Previous</button>
-                        <button id="nextButton" class="btn btn-secondary">Next</button>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

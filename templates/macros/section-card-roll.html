@@ -1,0 +1,49 @@
+{% macro wrap_container() %}
+<div class="wrap container" role="document">
+  <div class="content">
+    {{ caller() }}
+  </div>
+</div>
+{% endmacro wrap_container %}
+
+{% macro center_column() %}
+<div class="row justify-content-center">
+  <div class="col-md-12 col-lg-10 col-xxl-8">
+    {{ caller() }}
+  </div>
+</div>
+{% endmacro center_column %}
+
+{% macro section_header(title) %}
+<h1 class="text-center">{{ title }}</h1>
+{% endmacro section_header %}
+
+{% macro card_list(pages) %}
+<div class="card-list">
+  {% for page in pages %}
+  <div class="card my-3">
+    <div class="card-body">
+      <h2 class="h3"><a class="stretched-link text-body" href="{{ page.permalink }}">{{ page.title }}</a></h2>
+      {% if page.extra.lead %}
+        <p class="lead">{{ page.extra.lead | safe }}</p>
+      {% elif page.description %}
+        <p class="lead">{{ page.description | safe }}</p>
+      {% endif %}
+      {{ macros_publish::page_publish_metadata(page=page) }}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endmacro card_list %}
+
+{% macro simple_card_list(pages) %}
+<div class="card-list">
+  {% for page in pages %}
+  <div class="card my-3">
+    <div class="card-body">
+      <a class="stretched-link" href="{{ page.permalink }}">{{ page.title }} &rarr;</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endmacro simple_card_list %}
