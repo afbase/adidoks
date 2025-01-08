@@ -1,0 +1,17 @@
+<div id="timeline"></div>
+
+<script>
+  milestones('#timeline')
+    .mapping({
+      'timestamp': 'year',
+      'text': 'title'
+    })
+    .parseTime('%Y')
+    .aggregateBy('year')
+    .render([
+      { year: 1685, title: '🇫🇷 Code Noir: forbid slaves who belong to different masters from gathering' },
+      { year: 1740, title: '🏴󠁧󠁢󠁥󠁮󠁧󠁿 South Carolina Slave Act of 1740: Forbade "using or keeping of drums, horns, or other loud instruments,"' },
+      { year: 1695, title: '🏴󠁧󠁢󠁥󠁮󠁧󠁿 Maryland: Prohibition against gatherings of slaves' },
+      { year: 1785, title: '🇪🇸 Codigo Carolina: Forbids music at funerals' }
+    ]);
+</script>

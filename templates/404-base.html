@@ -33,10 +33,6 @@
 {% block math %}{{ macros_math::math() }}{% endblock math %}
 <link rel="stylesheet" href="{{ get_url(path="css/bootstrap.min.css") | safe }}">
 <link rel="stylesheet" href="{{ get_url(path="css/slave-code.css") | safe }}">
-{% if current_path is containing("drums-african-diaspora") %}
-<link rel="stylesheet" href="https://unpkg.com/d3-milestones/build/d3-milestones.css">
-<script src="https://unpkg.com/d3-milestones/build/d3-milestones.min.js"></script>
-{% endif %}
 </head>
 {% block body %}{% set page_class="home" %}{% endblock body %}
 <body class="{{ page_class }}">
