@@ -1,0 +1,122 @@
+{% extends "page.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-10 col-xl-8">
+            <main class="docs-content">
+                <h1>{{ page.title }}</h1>
+                
+                {% if page.description %}
+                    <p class="lead">{{ page.description | safe }}</p>
+                {% endif %}
+
+                {% if page.extra.slave_code %}
+                    <div class="slave-code-info alert alert-info">
+                        <h4>Document Information</h4>
+                        <ul class="list-unstyled">
+                            {% if page.extra.slave_code.transcription_tool %}
+                                <li><strong>Transcription Tool:</strong> {{ page.extra.slave_code.transcription_tool }}</li>
+                            {% endif %}
+                            {% if page.extra.slave_code.translation_tool %}
+                                <li><strong>Translation Tool:</strong> {{ page.extra.slave_code.translation_tool }}</li>
+                            {% endif %}
+                        </ul>
+                        {% if page.extra.slave_code.citation %}
+                            <h5>Citation</h5>
+                            <p class="small">{{ page.extra.slave_code.citation | safe }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    {{ macros_language_tabs::language_tabs(page=page) }}
+                    <div class="tab-content mt-3">
+                        {% for code in page.extra.slave_code.codes %}
+                            {% if current_path %}
+                                {% set slave_code_file_path = current_path ~ code.slave_code %}
+                            {% endif %}
+                            <div class="tab-pane fade {% if code.is_transcribed %}show active{% endif %}" 
+                                id="{{ code.lang }}" role="tabpanel" aria-labelledby="{{ code.lang }}-tab">
+                                <div class="margin-layout">
+                                    {% set slave_code_content = load_data(path=slave_code_file_path, format="plain") %}
+                                    {{ macros_process_margin_content::process_margin_content(content=slave_code_content) }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {{ page.content | safe }}
+            </main>
+        </div>
+    </div>
+</div>
+
+<style>
+.margin-layout {
+    position: relative;
+    padding-left: 200px;
+}
+
+.margin-section {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.margin-title {
+    position: absolute;
+    left: -200px;
+    width: 180px;
+    text-align: right;
+    font-weight: bold;
+    color: #666;
+    padding-right: 1rem;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.margin-content {
+    position: relative;
+}
+
+.margin-content p {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .margin-layout {
+        padding-left: 0;
+    }
+    
+    .margin-title {
+        position: relative;
+        left: 0;
+        width: 100%;
+        text-align: left;
+        margin-bottom: 0.5rem;
+        padding-right: 0;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+    }
+}
+</style>
+
+<div id="searchBar" class="sticky-bottom bg-light py-2">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-10 col-xl-8">
+                <div class="row">
+                    <div class="col-md-8">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search text...">
+                    </div>
+                    <div class="col-md-4">
+                        <button id="prevButton" class="btn btn-secondary mr-2">Previous</button>
+                        <button id="nextButton" class="btn btn-secondary">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

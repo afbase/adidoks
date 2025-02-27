@@ -1,0 +1,72 @@
+{% extends "page.html" %}
+
+{% block content %}
+<div class="wrap container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+      <main class="docs-content col-lg-11 col-xl-9">
+        <h1>{{ page.title }}</h1>
+        {% if page.description %}
+          <p class="lead">{{ page.description }}</p>
+        {% endif %}
+        
+        <div class="margin-notes-container">
+          {% for code in page.extra.slave_code.codes %}
+            {% if code.lang == "en" %}
+              {% set slave_code_content = load_data(path=current_path ~ code.slave_code, format="plain") %}
+              <pre>
+                Raw content: {{ slave_code_content }}
+              </pre>
+              {{ macros_margin_notes::render_content(content=slave_code_content) }}
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        {{ page.content | safe }}
+      </main>
+    </div>
+  </div>
+</div>
+
+<style>
+.margin-notes-container {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.margin-notes-pair {
+  display: contents; /* This makes children participate in parent grid */
+}
+
+.margin-note {
+  font-size: 0.9em;
+  color: #666;
+  padding: 0.5rem;
+  border-right: 1px solid #eee;
+  font-style: italic;
+  grid-column: 1;
+}
+
+.content-block {
+  padding: 0.5rem 0;
+  grid-column: 2;
+}
+
+@media (max-width: 768px) {
+  .margin-notes-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .margin-note {
+    border-right: none;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .margin-note, .content-block {
+    grid-column: 1;
+  }
+}
+</style>
+{% endblock content %}

@@ -1,0 +1,36 @@
+{% macro render_content(content) %}
+  {% set lines = content | split(pat="\n") %}
+  {% set current_note = "" %}
+  {% set current_text = "" %}
+  
+  {% for line in lines %}
+    {% set trimmed = line | trim %}
+    {% if trimmed is containing("`") %}
+      {% if trimmed is matching("^`.*`$") %}
+        {% if current_text %}
+          <div class="margin-notes-pair">
+            {% if current_note %}
+              <div class="margin-note">{{ current_note | markdown | safe }}</div>
+            {% endif %}
+            <div class="content-block">{{ current_text | markdown | safe }}</div>
+          </div>
+          {% set current_text = "" %}
+        {% endif %}
+        {% set current_note = trimmed | trim_start_matches(pat="`") | trim_end_matches(pat="`") %}
+      {% else %}
+        {% set_global current_text = current_text ~ "\n" ~ line %}
+      {% endif %}
+    {% else %}
+      {% set_global current_text = current_text ~ "\n" ~ line %}
+    {% endif %}
+  {% endfor %}
+  
+  {% if current_text %}
+    <div class="margin-notes-pair">
+      {% if current_note %}
+        <div class="margin-note">{{ current_note | markdown | safe }}</div>
+      {% endif %}
+      <div class="content-block">{{ current_text | markdown | safe }}</div>
+    </div>
+  {% endif %}
+{% endmacro %}

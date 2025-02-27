@@ -1,0 +1,31 @@
+{# String helper macros #}
+{% macro starts_with_backtick(text) %}
+    {%- if text is string -%}
+        {%- set first_char = text | slice(end=1) -%}
+        {{- first_char == "`" -}}
+    {%- else -%}
+        {{- false -}}
+    {%- endif -%}
+{% endmacro %}
+
+{% macro ends_with_backtick(text) %}
+    {%- if text is string -%}
+        {%- set last_char = text | slice(start=-1) -%}
+        {{- last_char == "`" -}}
+    {%- else -%}
+        {{- false -}}
+    {%- endif -%}
+{% endmacro %}
+
+{% macro trim_backticks(text) %}
+    {%- if text is string -%}
+        {%- set trimmed = text | trim -%}
+        {%- if starts_with_backtick(text=trimmed) and ends_with_backtick(text=trimmed) -%}
+            {{- trimmed | slice(start=1, end=-1) | trim -}}
+        {%- else -%}
+            {{- trimmed -}}
+        {%- endif -%}
+    {%- else -%}
+        {{- text -}}
+    {%- endif -%}
+{% endmacro %}
