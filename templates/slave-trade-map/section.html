@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block seo %}
+  {% set title_separator = " | " %}
+  <title>{{ section.title }}{{ title_separator }}{{ config.title }}</title>
+  <meta name="description" content="{{ section.description | default(value='') }}">
+{% endblock seo %}
+
+{% block body %}{% set page_class="slave-trade-map" %}{% endblock body %}
+
+{% block content %}
+<section class="section container-fluid mt-n3 pb-3">
+  <div class="row justify-content-center">
+    <div class="col-lg-12 text-center">
+      <h1 class="mt-0">{{ section.title }}</h1>
+      <p class="lead">{{ section.extra.lead | default(value="") }}</p>
+    </div>
+  </div>
+</section>
+
+<section class="section container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-lg-12">
+      <!-- slave-trade-map CSS -->
+      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/variables.css') | safe }}">
+      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/reset.css') | safe }}">
+      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/layout.css') | safe }}">
+      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/header.css') | safe }}">
+      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/toggle.css') | safe }}">
+      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/search.css') | safe }}">
+      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/map.css') | safe }}">
+      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/tooltip.css') | safe }}">
+      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/info-panel.css') | safe }}">
+      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/tables.css') | safe }}">
+      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/time-slider.css') | safe }}">
+      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/voyage.css') | safe }}">
+      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/about.css') | safe }}">
+      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/dataset.css') | safe }}">
+      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/utility.css') | safe }}">
+
+      <!-- External dependencies -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+      <script src="https://kit.fontawesome.com/b7e3c43e47.js" crossorigin="anonymous"></script>
+
+      <!-- slave-trade-map JS modules (must load before WASM) -->
+      <script src="{{ get_url(path='slave-trade-map/assets/js/colors.js') | safe }}"></script>
+      <script src="{{ get_url(path='slave-trade-map/assets/js/coords.js') | safe }}"></script>
+      <script src="{{ get_url(path='slave-trade-map/assets/js/map-helpers.js') | safe }}"></script>
+      <script src="{{ get_url(path='slave-trade-map/assets/js/map-core.js') | safe }}"></script>
+      <script src="{{ get_url(path='slave-trade-map/assets/js/map-destinations.js') | safe }}"></script>
+      <script src="{{ get_url(path='slave-trade-map/assets/js/map-flows.js') | safe }}"></script>
+      <script src="{{ get_url(path='slave-trade-map/assets/js/map-timeline.js') | safe }}"></script>
+      <script src="{{ get_url(path='slave-trade-map/assets/js/map-ui.js') | safe }}"></script>
+
+      <!-- App mount point -->
+      <div id="slave-trade-map-root" class="stm-embedded">
+      </div>
+
+      <!-- WASM loader - the exact filenames will be in the dist from dx build -->
+      <script type="module">
+        // Find and load the WASM module from the slave-trade-map dist
+        // dx build outputs: assets/dioxus/{name}.js and assets/dioxus/{name}_bg.wasm
+        import init from '{{ get_url(path="slave-trade-map/assets/dioxus/slave-trade-map.js") | safe }}';
+        await init('{{ get_url(path="slave-trade-map/assets/dioxus/slave-trade-map_bg.wasm") | safe }}');
+      </script>
+    </div>
+  </div>
+</section>
+{% endblock content %}
