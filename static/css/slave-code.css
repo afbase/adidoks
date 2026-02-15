@@ -20,3 +20,12 @@ mark {
     max-width: 100%;
     overflow-x: auto;
 }
+
+body.dark .current-match {
+    background-color: #cc8400 !important;
+}
+
+body.dark mark {
+    background-color: #a0a000;
+    color: #1a1a1a;
+}

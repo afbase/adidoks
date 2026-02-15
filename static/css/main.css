@@ -42,3 +42,7 @@ h1.page-title-border {
     border-top-width: 12px;
     border-top-style: solid;
   }
+
+body.dark .tooltip-wrapper {
+    border-bottom: 1px dotted #ccc;
+}

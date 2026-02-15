@@ -75,3 +75,28 @@
     padding-left: 1rem;
   }
 }
+
+#suggestions {
+  background: $white;
+}
+
+body.dark #suggestions {
+  background: $gray-800;
+}
+
+body.dark #suggestions a:focus,
+body.dark #suggestions a:hover {
+  background: $gray-700;
+}
+
+body.dark #suggestions span:first-child {
+  color: $gray-300;
+}
+
+body.dark #suggestions span:nth-child(2) {
+  color: $gray-400;
+}
+
+body.dark #suggestions div:not(:first-child) {
+  border-top-color: $gray-700;
+}
