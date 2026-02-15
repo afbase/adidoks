@@ -43,27 +43,12 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
       <script src="https://kit.fontawesome.com/b7e3c43e47.js" crossorigin="anonymous"></script>
 
-      <!-- slave-trade-map JS modules (must load before WASM) -->
-      <script src="{{ get_url(path='slave-trade-map/assets/js/colors.js') | safe }}"></script>
-      <script src="{{ get_url(path='slave-trade-map/assets/js/coords.js') | safe }}"></script>
-      <script src="{{ get_url(path='slave-trade-map/assets/js/map-helpers.js') | safe }}"></script>
-      <script src="{{ get_url(path='slave-trade-map/assets/js/map-core.js') | safe }}"></script>
-      <script src="{{ get_url(path='slave-trade-map/assets/js/map-destinations.js') | safe }}"></script>
-      <script src="{{ get_url(path='slave-trade-map/assets/js/map-flows.js') | safe }}"></script>
-      <script src="{{ get_url(path='slave-trade-map/assets/js/map-timeline.js') | safe }}"></script>
-      <script src="{{ get_url(path='slave-trade-map/assets/js/map-ui.js') | safe }}"></script>
-
       <!-- App mount point -->
-      <div id="slave-trade-map-root" class="stm-embedded">
+      <div id="main" class="stm-embedded">
       </div>
 
-      <!-- WASM loader - the exact filenames will be in the dist from dx build -->
-      <script type="module">
-        // Find and load the WASM module from the slave-trade-map dist
-        // dx build outputs: assets/dioxus/{name}.js and assets/dioxus/{name}_bg.wasm
-        import init from '{{ get_url(path="slave-trade-map/assets/dioxus/slave-trade-map.js") | safe }}';
-        await init('{{ get_url(path="slave-trade-map/assets/dioxus/slave-trade-map_bg.wasm") | safe }}');
-      </script>
+      <!-- Dioxus WASM loader -->
+      <script type="module" async src="{{ get_url(path='slave-trade-map/assets/slave-trade-map-entry.js') | safe }}"></script>
     </div>
   </div>
 </section>
