@@ -21,23 +21,6 @@
 <section class="section container-fluid">
   <div class="row justify-content-center">
     <div class="col-lg-12">
-      <!-- slave-trade-map CSS -->
-      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/variables.css') | safe }}">
-      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/reset.css') | safe }}">
-      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/layout.css') | safe }}">
-      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/header.css') | safe }}">
-      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/toggle.css') | safe }}">
-      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/search.css') | safe }}">
-      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/map.css') | safe }}">
-      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/tooltip.css') | safe }}">
-      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/info-panel.css') | safe }}">
-      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/tables.css') | safe }}">
-      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/time-slider.css') | safe }}">
-      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/voyage.css') | safe }}">
-      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/about.css') | safe }}">
-      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/dataset.css') | safe }}">
-      <link rel="stylesheet" href="{{ get_url(path='slave-trade-map/assets/css/utility.css') | safe }}">
-
       <!-- External dependencies -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
@@ -47,7 +30,7 @@
       <div id="main" class="stm-embedded">
       </div>
 
-      <!-- Dioxus WASM loader -->
+      <!-- Dioxus WASM loader - handles CSS and WASM loading internally -->
       <script type="module" async src="{{ get_url(path='slave-trade-map/assets/slave-trade-map-entry.js') | safe }}"></script>
     </div>
   </div>
