@@ -1,7 +1,18 @@
-<figure class="image-with-caption mb-4">
-  <img src="{{ url }}" alt="{{ caption }}" class="img-fluid rounded" loading="lazy">
-  <figcaption class="figure-caption mt-2 px-2 py-1">
-    {{ caption }}
-    {% if credit %}<span class="image-credit d-block text-end"><small>{{ credit }}</small></span>{% endif %}
-  </figcaption>
-</figure>
+{% if width is defined %}
+  {% set resized = resize_image(path=url, width=width, op="fit_width", quality=85) %}
+  <figure class="image-with-caption mb-4">
+    <img src="{{ resized.url }}" alt="{{ caption }}" class="img-fluid rounded" loading="lazy" width="{{ resized.width }}" height="{{ resized.height }}">
+    <figcaption class="figure-caption mt-2 px-2 py-1">
+      {{ caption }}
+      {% if credit %}<span class="image-credit d-block text-end"><small>{{ credit }}</small></span>{% endif %}
+    </figcaption>
+  </figure>
+{% else %}
+  <figure class="image-with-caption mb-4">
+    <img src="{{ url }}" alt="{{ caption }}" class="img-fluid rounded" loading="lazy">
+    <figcaption class="figure-caption mt-2 px-2 py-1">
+      {{ caption }}
+      {% if credit %}<span class="image-credit d-block text-end"><small>{{ credit }}</small></span>{% endif %}
+    </figcaption>
+  </figure>
+{% endif %}
