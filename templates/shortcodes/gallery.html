@@ -1,0 +1,42 @@
+{% set image_list = images | split(pat=",") %}
+{% if captions is defined %}
+  {% set caption_list = captions | split(pat=",") %}
+{% else %}
+  {% set caption_list = [] %}
+{% endif %}
+
+<div class="gallery-grid row g-3 mb-4">
+{% for img in image_list %}
+  {% set img_trimmed = img | trim %}
+  {% set idx = loop.index0 %}
+  <div class="col-md-4 gallery-item">
+    <div class="card h-100">
+      <a href="{{ img_trimmed }}" data-bs-toggle="modal" data-bs-target="#galleryModal{{ idx }}">
+        <img src="{{ img_trimmed }}" class="card-img-top" alt="{% if caption_list[idx] is defined %}{{ caption_list[idx] | trim }}{% else %}Gallery image {{ loop.index }}{% endif %}" loading="lazy">
+      </a>
+      {% if caption_list[idx] is defined %}
+      <div class="card-body py-2">
+        <p class="card-text small mb-0">{{ caption_list[idx] | trim }}</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="galleryModal{{ idx }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header py-2">
+          {% if caption_list[idx] is defined %}
+          <h6 class="modal-title">{{ caption_list[idx] | trim }}</h6>
+          {% endif %}
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0">
+          <img src="{{ img_trimmed }}" class="img-fluid w-100" alt="{% if caption_list[idx] is defined %}{{ caption_list[idx] | trim }}{% else %}Gallery image {{ loop.index }}{% endif %}">
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>

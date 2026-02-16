@@ -27,7 +27,7 @@
       <script src="https://kit.fontawesome.com/b7e3c43e47.js" crossorigin="anonymous"></script>
 
       <!-- App mount point (matches rootname("main") in src/main.rs) -->
-      <div id="main">
+      <div id="main" class="stm-embedded">
       </div>
 
       <!-- Dioxus WASM loader - handles CSS and WASM loading internally -->
@@ -35,4 +35,16 @@
     </div>
   </div>
 </section>
+
+{% if section.content %}
+<section class="section section-sm container">
+  <div class="row justify-content-center">
+    <div class="col-lg-10 col-xl-8">
+      <div class="stm-content docs-content">
+        {{ section.content | safe }}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
 {% endblock content %}

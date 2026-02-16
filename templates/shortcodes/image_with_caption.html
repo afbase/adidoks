@@ -1,0 +1,7 @@
+<figure class="image-with-caption mb-4">
+  <img src="{{ url }}" alt="{{ caption }}" class="img-fluid rounded" loading="lazy">
+  <figcaption class="figure-caption mt-2 px-2 py-1">
+    {{ caption }}
+    {% if credit %}<span class="image-credit d-block text-end"><small>{{ credit }}</small></span>{% endif %}
+  </figcaption>
+</figure>
