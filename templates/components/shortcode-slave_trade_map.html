@@ -1,3 +1,5 @@
+{# Usage in content: {{ <slave_trade_map /> }} #}
+{% component slave_trade_map() %}
 <div style="width:100%;min-height:700px;">
   <div id="main"></div>
 </div>
@@ -5,3 +7,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 <script src="https://kit.fontawesome.com/b7e3c43e47.js" crossorigin="anonymous"></script>
 <script type="module" async src="{{ get_url(path='slave-trade-map/assets/slave-trade-map-entry.js') | safe }}"></script>
+{% endcomponent slave_trade_map %}

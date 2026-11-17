@@ -1,3 +1,5 @@
+{# Usage in content: {% <accordion id="x" title="Title" open={true}> %}markdown{% </accordion> %} #}
+{% component accordion(id, title, open = false) %}
 <div class="accordion mb-4" id="acc-{{ id }}">
   <div class="accordion-item">
     <h2 class="accordion-header" id="heading-{{ id }}">
@@ -11,8 +13,9 @@
     <div id="collapse-{{ id }}" class="accordion-collapse collapse {% if open %}show{% endif %}"
          aria-labelledby="heading-{{ id }}" data-bs-parent="#acc-{{ id }}">
       <div class="accordion-body">
-        {{ body | markdown | safe }}
+{{ body | markdown | trim | safe }}
       </div>
     </div>
   </div>
 </div>
+{% endcomponent accordion %}

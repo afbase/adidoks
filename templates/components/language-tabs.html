@@ -1,4 +1,4 @@
-{% macro language_tabs(page) %}
+{% component language_tabs(page) %}
 <ul class="nav nav-tabs" id="languageTabs" role="tablist">
     {% for code in page.extra.slave_code.codes %}
         <li class="nav-item" role="presentation">
@@ -21,4 +21,4 @@
         </li>
     {% endfor %}
 </ul>
-{% endmacro language_tabs %}
+{% endcomponent language_tabs %}

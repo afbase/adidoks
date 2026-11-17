@@ -1,0 +1,37 @@
+{# Usage in content:
+   {% <translation_tabs id="x" fr_label="Français" en_label="English"> %}
+   French markdown
+   <!-- split -->
+   English markdown
+   {% </translation_tabs> %}
+   Note: output is fed back through the Markdown parser when used in content, so it must not
+   contain blank or indented lines (they would end the HTML block and turn into code blocks). #}
+{% component translation_tabs(id: string, fr_label: string = "Fran&ccedil;ais", en_label: string = "English") -%}
+{%- set parts = body | split(pat="<!-- split -->") -%}
+<div class="translation-tabs mb-4" id="tabs-{{ id }}">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation">
+<button class="nav-link active" id="tab-{{ id }}-fr" data-bs-toggle="tab" data-bs-target="#pane-{{ id }}-fr" type="button" role="tab" aria-controls="pane-{{ id }}-fr" aria-selected="true">{{ fr_label | safe }}</button>
+</li>
+<li class="nav-item" role="presentation">
+<button class="nav-link" id="tab-{{ id }}-en" data-bs-toggle="tab" data-bs-target="#pane-{{ id }}-en" type="button" role="tab" aria-controls="pane-{{ id }}-en" aria-selected="false">{{ en_label }}</button>
+</li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane fade show active" id="pane-{{ id }}-fr" role="tabpanel" aria-labelledby="tab-{{ id }}-fr">
+<div class="translation-pane p-3">
+{{ parts[0] | markdown | trim | safe }}
+</div>
+</div>
+<div class="tab-pane fade" id="pane-{{ id }}-en" role="tabpanel" aria-labelledby="tab-{{ id }}-en">
+<div class="translation-pane p-3">
+{% if parts | length > 1 -%}
+{{ parts[1] | markdown | trim | safe }}
+{%- else -%}
+<p><em>Translation not yet available.</em></p>
+{%- endif %}
+</div>
+</div>
+</div>
+</div>
+{%- endcomponent translation_tabs %}

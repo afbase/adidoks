@@ -1,47 +1,47 @@
-{# Content processing macro #}
-{% macro process_margin_content(content) %}
-    {% set_global lines = content | split(pat="\n") %}
-    {% set_global titles = [] %}
-    {% set_global texts = [] %}
-    {% set_global current_text = [] %}
-    {% set_global in_paragraph = false %}
-    
+{# Splits plain text into "## title" sections and renders each with its title in the margin #}
+{% component process_margin_content(content: string) %}
+    {% set lines = content | split(pat="\n") %}
+    {% set titles = [] %}
+    {% set texts = [] %}
+    {% set current_text = [] %}
+    {% set in_paragraph = false %}
+
     {% for line in lines %}
-        {% set_global trimmed_line = line | trim %}
-        {% if trimmed_line is starting_with("##") %}
+        {% set trimmed_line = line | trim %}
+        {% if trimmed_line is starting_with(pat="##") %}
             {# If we have a previous section, save it #}
             {% if current_text %}
-                {% set_global texts = texts | concat(with=[current_text | join(sep="\n")]) %}
+                {% set_global texts = [...texts, current_text | join(sep="\n")] %}
                 {% set_global current_text = [] %}
             {% endif %}
             {# Remove the ## and any extra spaces #}
-            {% set_global titles = titles | concat(with=[trimmed_line | replace(from="##", to="") | trim]) %}
+            {% set_global titles = [...titles, trimmed_line | replace(from="##", to="") | trim] %}
         {% else %}
             {% if trimmed_line %}
                 {# Start a new paragraph if we're not in one #}
                 {% if not in_paragraph %}
-                    {% set_global current_text = current_text | concat(with=["<p>"]) %}
+                    {% set_global current_text = [...current_text, "<p>"] %}
                     {% set_global in_paragraph = true %}
                 {% endif %}
-                {% set_global current_text = current_text | concat(with=[trimmed_line]) %}
+                {% set_global current_text = [...current_text, trimmed_line] %}
             {% else %}
                 {# Empty line - close paragraph if we're in one #}
                 {% if in_paragraph %}
-                    {% set_global current_text = current_text | concat(with=["</p>"]) %}
+                    {% set_global current_text = [...current_text, "</p>"] %}
                     {% set_global in_paragraph = false %}
                 {% endif %}
             {% endif %}
         {% endif %}
     {% endfor %}
-    
+
     {# Don't forget the last section and close any open paragraph #}
     {% if in_paragraph %}
-        {% set_global current_text = current_text | concat(with=["</p>"]) %}
+        {% set current_text = [...current_text, "</p>"] %}
     {% endif %}
     {% if current_text %}
-        {% set_global texts = texts | concat(with=[current_text | join(sep="\n")]) %}
+        {% set texts = [...texts, current_text | join(sep="\n")] %}
     {% endif %}
-    
+
     {# Render all sections #}
     {% for i in range(end=titles | length) %}
         <div class="margin-section">
@@ -49,4 +49,4 @@
             <div class="margin-content">{{ texts[i] | safe }}</div>
         </div>
     {% endfor %}
-{% endmacro %}
+{% endcomponent process_margin_content %}

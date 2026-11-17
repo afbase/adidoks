@@ -21,7 +21,7 @@
     {% set description = config.description %}
   {% endif %}
   
-  {{ macros_head::seo(title=title, title_addition=title_addition, description=description) }}
+  {{ <head.seo title={title} title_addition={title_addition} description={description} config={config} section={section} current_url={current_url} current_path={current_path} /> }}
 {% endblock seo %}
 
 {% block body %}

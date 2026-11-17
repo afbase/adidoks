@@ -1,4 +1,4 @@
-{% macro header(current_section) %}
+{% component header(current_section: string, config, lang: string) %}
 <div class="header-bar fixed-top"></div>
 <header class="navbar fixed-top navbar-expand-md navbar-light">
 	<div class="container">
@@ -58,4 +58,4 @@
 		</div>
 	</div>
 </header>
-{% endmacro %}
+{% endcomponent header %}

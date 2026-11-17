@@ -1,27 +1,27 @@
-{% macro wrap_container() %}
+{% component wrap_container() %}
 <div class="wrap container" role="document">
   <div class="content">
-    {{ caller() }}
+    {{ body }}
   </div>
 </div>
-{% endmacro wrap_container %}
+{% endcomponent wrap_container %}
 
-{% macro center_column() %}
+{% component center_column() %}
 <div class="row justify-content-center">
   <div class="col-md-12 col-lg-10 col-xxl-8">
-    {{ caller() }}
+    {{ body }}
   </div>
 </div>
-{% endmacro center_column %}
+{% endcomponent center_column %}
 
-{% macro section_header(title) %}
+{% component section_header(title) %}
 <!-- <h1 class="text-center">{{ title }}</h1> -->
 <!-- TODO: FIX ME THIS IS BAD PRACTICE -->
 <h1 style="border-top-style: solid;border-top-width: 12px;">{{ title }}</h1>
 <!-- TODO: FIX ME THIS IS BAD PRACTICE -->
-{% endmacro section_header %}
+{% endcomponent section_header %}
 
-{% macro card_list(pages) %}
+{% component card_list(pages, config) %}
 <div class="card-list">
   {% for page in pages %}
   <div class="card my-3">
@@ -32,14 +32,14 @@
       {% elif page.description %}
         <p class="lead">{{ page.description | safe }}</p>
       {% endif %}
-      {{ macros_publish::page_publish_metadata(page=page) }}
+      {{ <page_publish_metadata page={page} config={config} /> }}
     </div>
   </div>
   {% endfor %}
 </div>
-{% endmacro card_list %}
+{% endcomponent card_list %}
 
-{% macro simple_card_list(pages) %}
+{% component simple_card_list(pages) %}
 <div class="card-list">
   {% for page in pages %}
   <div class="card my-3">
@@ -49,4 +49,4 @@
   </div>
   {% endfor %}
 </div>
-{% endmacro simple_card_list %}
+{% endcomponent simple_card_list %}

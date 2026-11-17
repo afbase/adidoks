@@ -1,4 +1,6 @@
-{% if width is defined %}
+{# Usage in content: {{ <image_with_caption url="img.jpg" caption="..." credit="..." width={800} /> }} #}
+{% component image_with_caption(url: string, caption: string, credit: string = "", width: integer = 0) %}
+{% if width %}
   {% set resized = resize_image(path=url, width=width, op="fit_width", quality=85) %}
   <figure class="image-with-caption mb-4">
     <img src="{{ resized.url }}" alt="{{ caption }}" class="img-fluid rounded" loading="lazy" width="{{ resized.width }}" height="{{ resized.height }}">
@@ -16,3 +18,4 @@
     </figcaption>
   </figure>
 {% endif %}
+{% endcomponent image_with_caption %}

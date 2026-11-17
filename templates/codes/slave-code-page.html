@@ -28,7 +28,7 @@
                             <p class="small">{{ page.extra.slave_code.citation | safe }}</p>
                         {% endif %}
                     </div>
-                    {{ macros_language_tabs::language_tabs(page=page) }}
+                    {{ <language_tabs page={page} /> }}
                     <div class="tab-content mt-3">
                         {% for code in page.extra.slave_code.codes %}
                             {% if current_path %}

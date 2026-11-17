@@ -6,7 +6,7 @@
 
 {% block header %}
   {% set current_section = "codes" %}
-  {{ macros_header::header(current_section=current_section)}}
+  {{ <header current_section={current_section} config={config} lang={lang} /> }}
 {% endblock header %}
 
 {% block content %}
@@ -15,15 +15,15 @@
     <div class="row justify-content-center">
       <div class="col-md-12 col-lg-10 col-xxl-8">
         <article>
-          {{ macros_section_card_roll::section_header(title=section.title) }}
+          {{ <section_header title={section.title} /> }}
           <div class="text-center">{{ section.content | safe }}</div>
-          {% set index_path = current_path ~ "_index.md" | trim_start_matches(pat="/") %}
+          {% set index_path = (current_path ~ "_index.md") | trim_start(pat="/") %}
           {% set index = get_section(path=index_path) %}
-          {{ macros_section_card_roll::simple_card_list(pages=index.pages) }}
+          {{ <simple_card_list pages={index.pages} /> }}
           {% for s in index.subsections %}
             {% set subsection = get_section(path=s) %}
             {% if subsection.pages %}
-              {{ macros_section_card_roll::simple_card_list(pages=subsection.pages) }}
+              {{ <simple_card_list pages={subsection.pages} /> }}
             {% endif %}
           {% endfor %}
         </article>

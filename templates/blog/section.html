@@ -6,7 +6,7 @@
 
 {% block header %}
   {% set current_section = "blog" %}
-  {{ macros_header::header(current_section=current_section)}}
+  {{ <header current_section={current_section} config={config} lang={lang} /> }}
 {% endblock header %}
 
 {% block content %}
@@ -15,10 +15,10 @@
     <div class="row justify-content-center">
       <div class="col-md-12 col-lg-10 col-xxl-8">
         <article>
-          {{ macros_section_card_roll::section_header(title=section.title) }}
-          {{ macros_section_card_roll::card_list(pages=paginator.pages) }}
+          {{ <section_header title={section.title} /> }}
+          {{ <card_list pages={paginator.pages} config={config} /> }}
           {% if paginator.previous or paginator.next %}
-            {{ macros_section_nav::navigation(paginator=paginator) }}
+            {{ <section_navigation paginator={paginator} /> }}
           {% endif %}
         </article>
       </div>

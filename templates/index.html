@@ -19,7 +19,7 @@
   
   {% set description = config.description %}
   
-  {{ macros_head::seo(title=title, title_addition=title_addition, description=description, is_home=true) }}
+  {{ <head.seo title={title} title_addition={title_addition} description={description} is_home={true} config={config} section={section} current_url={current_url} current_path={current_path} /> }}
 {% endblock seo %}
 
 {% block content %}
@@ -60,7 +60,7 @@
       <div class="col-md-12 col-lg-10 col-xxl-8">
         <div class="card-list">
           {% set blog_section = get_section(path="blog/_index.md") %}
-          {% set recent_posts = blog_section.pages | slice(end=3) %}
+          {% set recent_posts = blog_section.pages[:3] %}
           {% for page in recent_posts %}
             <div class="card my-3">
               <div class="card-body">

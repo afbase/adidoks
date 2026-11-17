@@ -28,7 +28,7 @@
                         {% endif %}
                     </div>
                     
-                    {{ macros_language_tabs::language_tabs(page=page) }}
+                    {{ <language_tabs page={page} /> }}
                     <div class="tab-content mt-3">
                         {% for code in page.extra.slave_code.codes %}
                             {% if current_path %}
@@ -38,7 +38,7 @@
                                 id="{{ code.lang }}" role="tabpanel" aria-labelledby="{{ code.lang }}-tab">
                                 <div class="margin-layout">
                                     {% set slave_code_content = load_data(path=slave_code_file_path, format="plain") %}
-                                    {{ macros_process_margin_content::process_margin_content(content=slave_code_content) }}
+                                    {{ <process_margin_content content={slave_code_content} /> }}
                                 </div>
                             </div>
                         {% endfor %}
